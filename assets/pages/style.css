@@ -1,0 +1,208 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;400;500&display=swap');
+
+*{margin: 0;
+padding: 0;
+box-sizing: border-box;
+font-family: 'Poppins', sans-serif;
+}
+
+body {
+display: flex;
+align-items: center;
+justify-content: center;
+min-height: 100vh;
+position: relative;
+}
+
+.Btn_add {
+width: fit-content;
+margin-bottom:20px;
+background-color:#2bc48a;
+padding: 5px 20px;
+color: #fff;
+display: flex;
+align-items: center;
+text-align: 0;
+border-radius: 6px;
+text-decoration: 0;
+}
+
+.Btn_add:hover {
+background-color: #d3e5f3;
+}
+.Btn_add img {
+margin-right: 5px;
+height: 20px;
+}
+
+/* Tableau */
+table {
+    border-collapse: collapse;
+    color: #404040;
+}
+th {
+    font-size: 16px;
+    border-bottom: 3px solid chocolate;
+    padding: 5px 20px;
+    font-weight: 500;
+}
+td {
+    font-weight: 400;
+    padding: 5px 30px;
+    font-size: 14px;
+}
+img {
+    height: 25px;
+}
+tr:nth-child(2n) {
+    background-color: #f6f8f8;
+}
+tr:nth-child(2n) td {
+    border-bottom: 1px solid #e0e0e0;
+    border-top: 1px solid #e0e0e0;
+}
+/*Form CSS*/
+.form {
+    background-color: #f6f8f8;
+    padding: 25px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    border-radius: 6px;
+}
+.form form {
+    display: flex;
+    width: 350px;
+    flex-direction: column;
+} 
+
+.back_btn {
+    color: #2bc48a;
+    text-decoration: 0; 
+    display: flex;
+    align-items: center;
+} 
+
+.back_btn img {
+    height: 16px;
+    margin-right: 5px;
+}
+h2 {
+    margin: 10px 0;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+.erreur_message {
+    color: red;
+    font-size: 12px;
+}
+label {
+    margin-top: 5px;
+    text-decoration: uppercase;
+}
+input {
+    padding: 5px;
+    border: 1px solid #999;
+    outline: 0;
+    margin-top: 2px;
+}
+input:focus {
+    border: 1px solid #ffcb61;
+}
+input[type="submit"] {
+    margin-top: 25px;
+    background-color: #2bc48a;
+    border: 1px solid #2bc48a;
+    cursor: pointer;
+    color: #fff;
+    text-decoration: uppercase;
+    padding: 5px;
+    border-radius: 6px;
+}
+/* à modifier */
+.btn-liste-menu
+{
+    padding: 5px 8px;
+    border: 0;
+    outline: 0;
+    background-color:#2e0c6d;
+    color: #fff;
+    border-radius: 6px;
+    font-size: 14px;
+    text-decoration: 0;
+    text-align: center;
+    margin-top: 10px;
+}
+
+/*page (menu -> plat) à modifier*/
+.menu {
+height: 200vh;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.menu-content {
+background-color:#fff;
+width: 550px;
+height: 450px;
+border: 6px;
+padding: 20px;
+border-radius: 6px;
+box-shadow: 0 0 50px  rgba(0,0,0,0.4);
+}
+.menu-content a {
+    color:#8855e9;
+    text-decoration: 0;
+}
+    
+.menu-content a:hover{
+    text-decoration: underline;
+}
+/* Scroll bar css à modifier*/
+::-webkit-scrollbar {
+    width: 8px;
+    height: 5px;
+}
+
+::-webkit-scrollbar-thumb{
+    background-color:#ccc;
+}
+
+.menu-content h3 {
+    text-align: center;
+    margin-top: 10px;
+    text-transform: uppercase;
+}
+.liste-menus {
+    max-height: 400px;
+    overflow: auto;
+}
+
+.menu{
+    margin: 20px 0;
+    height: 100px;
+    display: flex;
+}
+
+.menu .image-menu {
+    height: 100%;
+    width: 100px;
+}
+
+.menu .image-menu img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+.menu .text {
+    margin-left: 15px;
+    overflow: hidden;
+    width: 80%;
+}
+
+.menu .text .titre {
+    text-transform: uppercase;
+}
+.menu .text .description {
+    font-size: 14px;
+    color: #2f39cd;
+}
