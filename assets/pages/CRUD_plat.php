@@ -1,50 +1,35 @@
 <?php
-session_start();
-
-// Vérifier si les produits sont stockés en session, sinon initialiser un tableau vide
-if (!isset($_SESSION['plat'])) {
-    $_SESSION['plat'] = [
-        ['id' => 1, 'nom' => 'Napolitaine', 'description' => 'Sauce tomate, Mozzarella, Chorizo, Basilic frais', 'prix' => 14, 'categorie' => 'Pizza'],
-        ['id' => 2, 'nom' => 'Champignons', 'description' => 'Crème fraîche, Mozzarella, Champignons', 'prix' => 15, 'categorie' => 'Pizza'],
-        // Ajoutez d'autres produits initiaux ici...
-    ];
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
 }
 
-// Ajouter un produit en session
-if (isset($_POST['btn-ajouter']) && $_POST['btn-ajouter'] == 'Ajouter') {
-    if (!empty($_POST['nom']) && !empty($_POST['description']) && !empty($_POST['prix']) && !empty($_POST['categorie'])) {
-        $id = count($_SESSION['plat']) + 1; // Générer un nouvel ID basé sur le nombre actuel de produits
-        $plats = [
-            'id' => $id,
-            'nom' => $_POST['nom'],
-            'description' => $_POST['description'],
-            'prix' => $_POST['prix'],
-            'categorie' => $_POST['categorie'],
-        ];
-        $_SESSION['plat'][] = $plats; // Ajouter le produit au tableau en session
-    }
+// Connexion à la base de données
+$host = 'localhost';
+$dbname = 'gestionnaire_de_menu';
+$username = 'root';
+$password = '';
+
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("Erreur de connexion : " . $e->getMessage());
 }
 
-// Modifier un produit en session
-if (isset($_POST['btn-ajouter']) && $_POST['btn-ajouter'] == 'Modifier') {
-    foreach ($_SESSION['plat'] as &$plats) {
-        if ($plats['id'] == $_POST['id']) {
-            $plats['nom'] = $_POST['nom'];
-            $plats['description'] = $_POST['description'];
-            $plats['prix'] = $_POST['prix'];
-            $plats['categorie'] = $_POST['categorie'];
-        }
-    }
-}
+// Vérifier si un ID est passé dans l'URL
+if (isset($_GET['id']) && !empty($_GET['id'])) {
+    $id = $_GET['id'];
 
-// Supprimer un produit en session
-if (isset($_POST['btn-ajouter']) && $_POST['btn-ajouter'] == 'Supprimer') {
-    foreach ($_SESSION['plat'] as $key => $plats) {
-        if ($plats['id'] == $_POST['id']) {
-            unset($_SESSION['plat'][$key]); // Supprimer le produit du tableau en session
-            $_SESSION['plat'] = array_values($_SESSION['plat']); // Réindexer le tableau
-        }
+    // Récupérer les infos du produit correspondant
+    $stmt = $pdo->prepare("SELECT * FROM plat WHERE id = ?");
+    $stmt->execute([$id]);
+    $plat = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!$plat) {
+        die("Produit introuvable.");
     }
+} else {
+    die("ID du produit non spécifié.");
 }
 ?>
 
@@ -53,7 +38,7 @@ if (isset($_POST['btn-ajouter']) && $_POST['btn-ajouter'] == 'Supprimer') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../pages/style.css">
+    <link rel="stylesheet" href="style.css">
     <title>Modifier</title>
 </head>
 <body>
@@ -62,26 +47,46 @@ if (isset($_POST['btn-ajouter']) && $_POST['btn-ajouter'] == 'Supprimer') {
         <h2>Modifier un produit</h2>
         <p class="erreur_message">Veuillez remplir tous les champs !</p>
 
-        <form action="" method="POST">
+        <form action="db.php?action=ajouter" method="POST">
+            <label>id</label>
+            <input type="hidden" name="id"
+                    value="<?= isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '' ?>">
+
+
             <label>Nom du produit</label>
             <input type="text" name="nom" required>
-
+            
             <label>Description du produit</label>
-            <textarea name="description" cols="30" rows="10" required></textarea>
-
+            <textarea name="description" required></textarea>
+            
             <label>Prix</label>
-            <input type="number" name="prix" required>
-
+            <input type="number" step="0.01" name="prix" required>
+            
             <label>Catégorie</label>
             <input type="text" name="catégorie" required>
 
-            <label>ID du produit</label>
-            <input type="number" name="id" required>
-
-            <input type="submit" value="Ajouter" name="btn-ajouter">
-            <input type="submit" value="Modifier" name="btn-ajouter">
-            <input type="submit" value="Supprimer" name="btn-ajouter">
+            <input type="submit" value="Ajouter">
         </form>
+
+        <form action="db.php?action=modifier" method="POST">
+            <input type="hidden" name="id" value="<?= htmlspecialchars($plat['id']); ?>">
+            
+            <label>Nom</label>
+            <input type="text" name="nom" value="<?= htmlspecialchars($plat['nom']); ?>" required>
+            
+            <label>Description</label>
+            <textarea name="description" required><?= htmlspecialchars($plat['description']); ?></textarea>
+            
+            <label>Prix</label>
+            <input type="number" step="0.01" name="prix" value="<?= htmlspecialchars($plat['prix']); ?>" required>
+            
+            <label>Catégorie</label>
+            <input type="text" name="catégorie" value="<?= htmlspecialchars($plat['catégorie']); ?>" required>
+
+            <input type="submit" value="Modifier">
+        </form>
+
+
     </div>
 </body>
 </html>
