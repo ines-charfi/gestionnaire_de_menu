@@ -107,11 +107,13 @@ $pdo = null;
 <body>
 
     <header>
+    <a href="index.php" class="back_btn"><img src="../images/back.jpg"> Retour</a>
         <h1>Bienvenue sur le gestionnaire de menus!</h1>
 
     </header>
     <div class="container">
-        <a href="add_menu.php" class="Btn_add"> <img src="../images/ajouter.jpg"> Ajouter un menu</a>
+
+        <a href="ajouter_menu.php" class="Btn_add"> <img src="../images/ajouter.jpg"> Ajouter un menu</a>
         <a href="plats.php" class="Btn_add"> <img src="../images/ajouter.jpg"> Ajouter un plat</a>
         <?php
         // Affichage du message (succès ou erreur)

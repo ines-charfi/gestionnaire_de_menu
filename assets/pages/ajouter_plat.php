@@ -92,7 +92,7 @@ $message = "Veuillez remplir tous les champs !";
                                 required><?= isset($description) ? htmlspecialchars($description) : '' ?></textarea>
 
                         <label>Prix</label>
-                        <input type="int" step="any" name="prix" value="<?= isset($prix) ? $prix : 0 ?>" required>
+                        <input type="number" step="any" name="prix" value="<?= isset($prix) ? $prix : 0 ?>" required>
 
                         <label>Catégorie</label>
                         <input type="text" name="catégorie"

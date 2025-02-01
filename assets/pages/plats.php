@@ -107,6 +107,7 @@ $pdo = null;
 <body>
 
     <header>
+    <a href="index.php" class="back_btn"><img src="../images/back.jpg"> Retour</a>
         <h1>Bienvenue sur le gestionnaire de menus!</h1>
 
     </header>
