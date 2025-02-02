@@ -12,19 +12,17 @@ if (isset($_POST['btn_ajouter'])) {
     // Récupération des données du formulaire
     $id = $_POST['id'];
     $description = $_POST['description'];
-    $prix = $_POST['prix'];
-    $image = $_POST['image'];
-    $catégorie = $_POST['catégorie'];
+    $prix = $_POST['poids'];
+  
 
     // Vérification que les champs ne sont pas vides
     if (!empty($id) && !empty($description) && !empty($prix) && !empty($image) && !empty($catégorie)) {
         // Préparer la requête SQL pour vérifier si le produit existe déjà
-        $stmt = $pdo->prepare("SELECT * FROM plat WHERE id = :id AND description  = :description AND prix = :prix AND image = :image AND catégorie = :catégorie");
+        $stmt = $pdo->prepare("SELECT * FROM ingredients WHERE id = :id AND description  = :description AND poids = :poids ");
         $stmt->bindParam(':id', $id);
         $stmt->bindParam(':description', $description);
-        $stmt->bindParam(':prix', $prix);
-        $stmt->bindParam(':image', $image);
-        $stmt->bindParam(':catégorie', $catégorie);
+        $stmt->bindParam(':poids', $poids);
+      
         // Exécuter la requête
         $stmt->execute();
 
@@ -37,7 +35,7 @@ if (isset($_POST['btn_ajouter'])) {
             $message = '<p style="color: #ff800">Le produit existe déjà</p>';
         } else {
             // Ajouter le produit à la base de données si il n'existe pas
-            $insertStmt = $pdo->prepare("INSERT INTO plat (id, description , prix, image , catégorie) VALUES (:id, :description,:prix,:image,:catégorie)");
+            $insertStmt = $pdo->prepare("INSERT INTO ingredients (id, description , poids) VALUES (:id, :description,:poids)");
             $stmt->bindParam(':id', $id);
             $stmt->bindParam(':description', $description);
             $stmt->bindParam(':prix', $prix);
@@ -47,46 +45,24 @@ if (isset($_POST['btn_ajouter'])) {
 
             $message = '<p style="color:green">Produit ajouté avec succès</p>';
         }
-        // Vérifier si un fichier a été téléchargé
-        if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
-            // Si une image a été téléchargée
-            $img_nom = $_FILES['image']['name'];  // Récupérer le nom original de l'image
-            $tmp_nom = $_FILES['image']['tmp_name']; // Nom temporaire du fichier
-            $time = time(); // Récupérer le timestamp actuel
-            // Créer un nouveau nom pour l'image
-            $nouveau_nom_img = $time . $img_nom;
-
-            // Déplacer l'image dans le dossier "images-menus"
-            $dossier = 'images-menu/';
-            $chemin_image = $dossier . $nouveau_nom_img;
-            // Déplacer le fichier vers le dossier "images-menus"
-            $deplacer_image = move_uploaded_file($tmp_nom, "images-menu/" . $nouveau_nom_ing);
-
-
-            if (move_uploaded_file($tmp_nom, $chemin_image)) {
+       
                 // Connexion à la base de données via PDO
                 try {
                     $pdo = new PDO('mysql:host=localhost;dbname=gestionnaire_de_menu', 'root', '');
                     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-                    // Mettre à jour le chemin de l'image dans la base de données
-                    $updateImageStmt = $pdo->prepare("UPDATE plat SET image = :image WHERE id = :id");
-                    $updateImageStmt->bindParam(':image', $chemin_image);
-                    $updateImageStmt->bindParam(':id', $id);
-                    $updateImageStmt->execute();
-                    echo "L'image a été téléchargée et ajoutée à la base de données.";
+                
+                   
                 } catch (PDOException $e) {
                     echo 'Erreur de connexion ou de requête : ' . $e->getMessage();
                 }
-            } else {
-                echo "L'image n'a pas pu être téléchargée.";
-            }
+            } 
         }
-    } else {
+    else {
         $message = '<p style="color:#ff800">Veuillez remplir tous les champs</p>';
     }
 
-}
+    // Fermer la connexion
 
 $pdo = null;
 
@@ -107,7 +83,7 @@ $pdo = null;
 <body>
 
     <header>
-    <a href="menus.php" class="back_btn"><img src="../images/back.jpg"> Retour</a>
+    <a href="index.php" class="back_btn"><img src="../images/back.jpg"> Retour</a>
         <h1>Bienvenue sur le gestionnaire de menus!</h1>
 
     </header>
@@ -125,9 +101,8 @@ $pdo = null;
             <tr id="items">
                 <th>id</th>
                 <th>description</th>
-                <th>prix</th>
-                <th>image</th>
-                <th>catégorie</th>
+                <th>poids</th>
+               
                 <th>Modifier</th>
                 <th>Supprimer</th>
             </tr>
@@ -136,12 +111,12 @@ $pdo = null;
 
             $pdo = new PDO('mysql:host=localhost;dbname=gestionnaire_de_menu', 'root', '');
             //requête pour afficher la liste de menus
-            $stmt = $pdo->prepare("SELECT * FROM plat");
+            $stmt = $pdo->prepare("SELECT * FROM ingredients");
             $stmt->execute();
             $stmt->fetch(PDO::FETCH_ASSOC);
 
             if ($stmt->rowCount() == 0) {
-                echo "Il n'y a pas encore de plat ajouté !";
+                echo "Il n'y a pas encore d'ingredient ajouté !";
             } else {
                 // Si des  existent, afficher leur liste
                 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
@@ -149,9 +124,8 @@ $pdo = null;
                     <tr>
                         <td><?= htmlspecialchars($row['id']) ?></td>
                         <td><?= htmlspecialchars($row['description']) ?></td>
-                        <td><?= htmlspecialchars($row['prix']) ?></td>
-                        <td><img src="../images/<?= htmlspecialchars($row['image']) ?>" alt="Image du menu" width="50"></td>
-                        <td><?= htmlspecialchars($row['catégorie']) ?></td>
+                        <td><?= htmlspecialchars($row['poids']) ?></td>
+            
                         <td><a href="modifier_plat.php?id=<?= htmlspecialchars($row['id']) ?>"><img src="../images/pen.jpg"
                                     alt="modifier"></a></td>
                         <td><a href="supprimer_plat.php?id=<?= htmlspecialchars($row['id']) ?>"><img src="../images/track.jpg"
