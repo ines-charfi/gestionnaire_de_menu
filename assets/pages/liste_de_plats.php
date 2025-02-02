@@ -13,7 +13,7 @@
 
         <div class="menu">
             <div class="menu-content">
-                <a href="plats.php">Ajouter un plat</a>
+                <a href="ajouter_plat.php">Ajouter un plat</a>
                 <h3>liste des plats</h3>
                 <div class="liste-menus">
                     <?php

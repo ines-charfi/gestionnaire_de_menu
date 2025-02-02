@@ -13,7 +13,7 @@
 
         <div class="menu">
             <div class="menu-content">
-                <a href="menus.php">Ajouter un menu</a>
+                <a href="ajouter_menu.php">Ajouter un menu</a>
                 <h3>liste des menus</h3>
                 <div class="liste-menus">
                     <?php

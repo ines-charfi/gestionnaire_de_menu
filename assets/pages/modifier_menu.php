@@ -42,7 +42,7 @@ if (isset($_POST['btn-modifier']) && !empty($_POST['description']) && !empty($_P
                                         // Exécuter la requête
                                         $stmt->execute();
 
-                                        header("Location: index.php");
+                                        header("Location: menus.php");
                                         exit();
                                 } else {
                                         $message = "Erreur lors du téléchargement de l'image.";
