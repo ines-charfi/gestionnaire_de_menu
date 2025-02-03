@@ -10,7 +10,7 @@
 <header>
 <nav>
         <ul>
-            <li><a href="index_connexion.php">Registration</a></li>
+            <li><a href="index.php">Registration</a></li>
             <li><a href="login.php">Login</a></li>
             
         </ul>

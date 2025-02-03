@@ -1,16 +1,16 @@
 <?php
 // Connexion à la base de données
-$host = 'localhost';
-$dbname = 'gestionnaire_de_menu';
-$username = 'root';
-$password = '';
+$host = 'localhost:3306';
+$dbname = 'ines-charfi_gestionnaire_de_menu';
+$username = 'ines-charfi';
+$password = 'ines2610.';
 if (isset($_POST['btn_ajouter'])) {
     // Vérifier si les champs sont remplis
     if (isset($_POST['description']) && isset($_POST['prix']) && isset($_POST['catégorie']) && $_POST['description'] != "" && $_POST['prix'] != "" && $_POST['catégorie'] != "") {
 
         try {
             // Connexion à la base de données avec PDO
-            $pdo = new PDO('mysql:host=localhost;dbname=gestionnaire_de_menu', 'root', ''); // Remplace ces valeurs par celles de ta base de données
+            $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username , $password); // Remplace ces valeurs par celles de ta base de données
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             // Extraction des données du formulaire
@@ -54,7 +54,7 @@ if (isset($_POST['btn_ajouter'])) {
             // Vérifier si l'insertion réussit
             if ($stmt->execute()) {
                 // Si l'insertion réussit, rediriger vers la page de visualisation des menus
-                header("location:index.php");
+                header("location:menus.php");
                 exit();
             } else {
                 // Si l'insertion échoue
@@ -84,7 +84,7 @@ if (isset($_POST['btn_ajouter'])) {
 
 <body>
     <div class="form">
-        <a href="index.php" class="back_btn"><img src="../images/back.jpg" alt="Retour"> Retour</a>
+        <a href="index.php" class="back_btn"><img src="./assets/images/back.jpg" alt="Retour"> Retour</a>
         <h2>Ajouter un menu</h2>
 
         <?php if (isset($message)) { ?>

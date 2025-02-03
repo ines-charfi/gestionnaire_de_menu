@@ -1,9 +1,10 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
+ $dbname = "ines-charfi_gestionnaire_de_menu";
+ $host = "3306";
+ $username = "ines-charfi";
+ $password = "ines2610.";
 try {
-    $bdd = new PDO("mysql:host=$servername;dbname=gestionnaire_de_menu", $username, $password);
+    $bdd = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
     $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     //echo "Connexion reussi !";
 } catch (PDOException $e) {
@@ -24,7 +25,7 @@ if (isset($_POST['ok'])) {
     );
 
     echo "Inscription réussie!";
-    header("Location: http://localhost/gestionmaire_de_menu/assets/pages/login.php");
+    header("Location:login.php");
     exit();
 }
 ?>

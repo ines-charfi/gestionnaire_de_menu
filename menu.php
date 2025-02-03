@@ -13,14 +13,18 @@
 
         <div class="menu">
             <div class="menu-content">
-                <a href="ajouter_menu.php">Ajouter un menu</a>
+            <a href="ajouter_menu.php" class="Btn_add"> <img src="./assets/images/ajouter.jpg"> Ajouter un menu</a>
                 <h3>liste des menus</h3>
                 <div class="liste-menus">
                     <?php
+                    $dbname = "ines-charfi_gestionnaire_de_menu";
+                    $host = "localhost:3306";
+                    $username = "ines-charfi";
+                    $password = "ines2610.";
                  
                    //connexion à la base de données avec PDO
                    try {
-                       $menus = new PDO("mysql:host=localhost;dbname=gestionnaire_de_menu", "root", "");
+                       $menus = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
                        // Définir le mode d'erreur de PDO pour lancer des exceptions
                        $menus->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                    
@@ -38,7 +42,7 @@
                             echo '
                           
                                 <div class="image-menu">
-                                    <img src="../images/' . $row['image'] . '" alt="Image du menu">
+                                    <img src="./assets/images/' . $row['image'] . '" alt="Image du menu">
                                 </div>
                                 <div class="text">
                                     <strong><p class="titre">' . $row['description'] . '</p></strong>

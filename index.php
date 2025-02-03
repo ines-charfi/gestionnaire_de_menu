@@ -18,12 +18,12 @@
     <h1>Registration</h1>
 </header>
 <?php 
-$servername = "localhost";
-$username = "root";
-$password = "";
+$servername = "localhost:3306";
+$username = "ines-charfi";
+$password = "ines2610.";
 
 try {
-    $bdd = new PDO("mysql:host=$servername;dbname=gestionnaire_de_menu", $username, $password);
+    $bdd = new PDO("mysql:host=$servername;dbname=ines-charfi_gestionnaire_de_menu", $username, $password);
     $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 }
 catch (PDOException $e){

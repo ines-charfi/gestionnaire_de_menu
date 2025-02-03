@@ -1,10 +1,14 @@
 <?php
+ $dbname = "ines-charfi_gestionnaire_de_menu";
+ $host = "localhost:3306";
+ $username = "ines-charfi";
+ $password = "ines2610.";
 
 // Vérifier que le bouton modifier a bien été cliqué
 if (isset($_POST['btn-modifier']) && !empty($_POST['description']) && !empty($_POST['prix']) && !empty($_POST['catégorie'])) {
     // Connexion à la base de données avec PDO
     try {
-        $pdo = new PDO('mysql:host=localhost;dbname=gestionnaire_de_menu', 'root', '');
+        $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         // Extraction des informations envoyées dans des variables par la méthode POST
@@ -76,7 +80,7 @@ if (isset($_POST['btn-modifier']) && !empty($_POST['description']) && !empty($_P
 
 <body>
     <div class="form">
-        <a href="plats.php" class="back_btn"><img src="../images/back.jpg"> Retour</a>
+        <a href="plats.php" class="back_btn"><img src="./assets/images/back.jpg"> Retour</a>
         <h2>Modifier un plat</h2>
         <p class="erreur_message"><?php if (isset($message)) { ?>
             <p class="erreur_message"><?= htmlspecialchars($message) ?></p>

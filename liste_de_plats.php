@@ -13,14 +13,15 @@
 
         <div class="menu">
             <div class="menu-content">
-                <a href="ajouter_plat.php">Ajouter un plat</a>
+                <a href="ajouter_plat.php" class="Btn_add"> <img src="./assets/images/ajouter.jpg"> Ajouter un plat</a>
+                <a href="liste_des_catégories.php" class="Btn_add"> <img src="./assets/images/ajouter.jpg"> Ajouter une catégorie</a>
                 <h3>liste des plats</h3>
                 <div class="liste-menus">
                     <?php
                  
                    //connexion à la base de données avec PDO
                    try {
-                       $menus = new PDO("mysql:host=localhost;dbname=gestionnaire_de_menu", "root", "");
+                       $menus = new PDO("mysql:host=localhost:3306;dbname=ines-charfi_gestionnaire_de_menu", "ines-charfi", "ines2610.");
                        // Définir le mode d'erreur de PDO pour lancer des exceptions
                        $menus->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                    
@@ -38,7 +39,7 @@
                             echo '
                           
                                 <div class="image-menu">
-                                    <img src="../images/' . $row['image'] . '" alt="Image du menu">
+                                    <img src="./assets/images/' . $row['image'] . '" alt="Image du menu">
                                 </div>
                                 <div class="text">
                                     <strong><p class="titre">' . $row['description'] . '</p></strong>
@@ -57,5 +58,4 @@
 
 
 </body>
-
-    </html>
+</html>

@@ -1,9 +1,9 @@
 <?php
 // Connexion à la base de données 
-$host = 'localhost'; // Hôte de la base de données
-$dbname = 'gestionnaire_de_menu'; // Nom de votre base de données
-$username = 'root'; // Votre nom d'utilisateur
-$password = ''; // Votre mot de passe
+$dbname = "ines-charfi_gestionnaire_de_menu";
+$host = "localhost:3306";
+$username = "ines-charfi";
+$password = "ines2610.";
 
 try {
     // Créer la connexion PDO

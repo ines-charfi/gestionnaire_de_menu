@@ -3,7 +3,7 @@
 if (isset($_POST['btn_ajouter']) && !empty($_POST['description']) && !empty($_POST['prix']) && !empty($_FILES['image']) && !empty($_POST['catégorie'])) {
     try {
         // Connexion à la base de données avec PDO
-        $pdo = new PDO('mysql:host=localhost;dbname=gestionnaire_de_menu', 'root', '');
+        $pdo = new PDO("mysql:host=localhost:3306;dbname=ines-charfi_gestionnaire_de_menu", 'ines-charfi', 'ines2610.');
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         // Récupérer les données du formulaire
@@ -42,7 +42,7 @@ if (isset($_POST['btn_ajouter']) && !empty($_POST['description']) && !empty($_PO
                 $stmt->execute();
 
                 // Si l'insertion est réussie, redirection vers menus.php
-                header("Location: menu.php");
+                header("Location: menus.php");
                 exit();
             }
         
@@ -76,10 +76,10 @@ $message = "Veuillez remplir tous les champs !";
 <body>
         
     <div class="form">
-        <a href="menus.php" class="back_btn"><img src="../images/back.jpg" alt="Retour"> Retour</a>
+        <a href="menus.php" class="back_btn"><img src="./assets/images/back.jpg" alt="Retour"> Retour</a>
         <h2>Ajouter un menu</h2>
         <?php
-        $stmt = new PDO("mysql:host=localhost;dbname=gestionnaire_de_menu",'root', '');
+        $stmt = new PDO("mysql:host=localhost:3306;dbname=ines-charfi_gestionnaire_de_menu",'ines-charfi', 'ines2610.');
         ?>
 
         <?php if (isset($message)) { ?>
