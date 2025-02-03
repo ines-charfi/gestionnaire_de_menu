@@ -51,7 +51,7 @@ try {
         
         <!-- Vérification de l'ID avant de l'afficher avec htmlspecialchars() -->
         <?php if ($id !== null): ?>
-            <form action="delete_menu.php" method="POST">
+            <form action="delete_menu.php" method="GET">
                 <input type="hidden" name="id" value="<?= htmlspecialchars($id) ?>">
                 <input type="submit" name="confirm" value="Oui, supprimer" class="btn-confirm">
             </form>

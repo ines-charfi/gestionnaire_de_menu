@@ -86,7 +86,7 @@ $pdo = null;
 
     </header>
     <div class="container">
-        <a href="listes_des_ingredients.php" class="Btn_add"> <img src="./assets/images/ajouter.jpg"> Ajouter un ingredient</a>
+        <a href="liste_des_ingredients.php" class="Btn_add"> <img src="./assets/images/ajouter.jpg"> Ajouter un ingredient</a>
         <a href="ajouter_plat.php" class="Btn_add"> <img src="./assets/images/ajouter.jpg"> Ajouter un plat</a>
         <?php
         // Affichage du message (succès ou erreur)

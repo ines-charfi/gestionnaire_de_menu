@@ -18,7 +18,7 @@ $id = $_GET['id'];
 
 try {
     // Préparer la requête de suppression avec PDO
-    $stmt = $pdo->prepare("DELETE FROM menu WHERE id = :id");
+    $stmt = $pdo->prepare("DELETE * FROM menu WHERE id = :id");
     $stmt->bindParam(':id', $id, PDO::PARAM_INT); // Lier l'ID au paramètre :id
     $stmt->execute(); // Exécuter la requête de suppression
     if ($stmt->execute()) {
@@ -50,7 +50,7 @@ try {
         
         <!-- Vérification de l'ID avant de l'afficher avec htmlspecialchars() -->
         <?php if ($id !== null): ?>
-            <form action="delete_menu.php" method="POST">
+            <form action="delete_menu.php" method="GET">
                 <input type="hidden" name="id" value="<?= htmlspecialchars($id) ?>">
                 <input type="submit" name="confirm" value="Oui, supprimer" class="btn-confirm">
             </form>

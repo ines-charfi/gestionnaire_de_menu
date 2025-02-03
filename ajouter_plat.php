@@ -42,7 +42,7 @@ if (isset($_POST['btn_ajouter']) && !empty($_POST['description']) && !empty($_PO
                 $stmt->execute();
 
                 // Si l'insertion est réussie, redirection vers menus.php
-                header("Location: liste_plats.php");
+                header("Location: plats.php");
                 exit();
             }
         
